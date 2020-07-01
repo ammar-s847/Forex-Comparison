@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <style>
+        /*
+            primary color: 44, 209, 66
+            font: arial, helvetica, sans-serif
+        */
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        #top {
+            background-color: rgb(44, 209, 66);
+            margin: 0;
+            padding: 10px;
+            width: 100%;
+            top: 0;
+            left: 0;
+            text-align: center;
+            position: relative;
+        }
+
+        #top h1 {
+            margin: 0px;
+        }
+
+        #top a {
+            text-decoration: none;
+            color: white;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        form * {
+            margin: 5px 0px;
+        }
+    </style>
+    <body>
+        <div id="top">
+            <h1><a href="{{ url_for('home') }}">Forex Comparison</a></h1>
+        </div>
+        {% block body_content %}
+        {% endblock %}
+    </body>
+</html>

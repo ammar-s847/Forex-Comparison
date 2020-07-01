@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{_from}} to {{_to}}
+{% endblock %}
+
+{% block body_content %}
+<h2>{{_from}} to {{_to}}</h2>
+<p>{{message}}</p>
+<p>{{content}}</p>
+<p>{{_datetime}}</p>
+<img src="plot.png" alt="Plot">
+{% endblock %}

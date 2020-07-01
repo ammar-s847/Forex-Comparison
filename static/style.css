@@ -1,0 +1,36 @@
+/*
+    primary color: 44, 209, 66
+    font: arial, helvetica, sans-serif
+*/
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+#top {
+    background-color: rgb(44, 209, 66);
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+#top h1 {
+    margin: 0px;
+}
+
+#top a {
+    text-decoration: none;
+    color: white;
+}
+
+form {
+    text-align: center;
+    margin-top: 15px;
+}
+
+form * {
+    margin: 5px 0px;
+}
