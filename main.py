@@ -40,7 +40,7 @@ def compare(_from, _to):
     message = str()
     try:
         response = requests.request("GET", url, headers=headers, params=querystring)
-        # print(response.text)
+        print(response.text)
         json_response = response.json()
         _datetime = f"Last Refreshed: {json_response['Meta Data']['5. Last Refreshed']}, Timezone: {json_response['Meta Data']['6. Time Zone']}"
         for key in json_response["Time Series FX (Daily)"]:
@@ -50,7 +50,7 @@ def compare(_from, _to):
     except:
         content = "Error"
 
-    return render_template("compare.html", _to=_to, _from=_from, content=content, _datetime=_datetime, message=message)
+    return render_template("compare.html", _to=_to, _from=_from, content=content, _datetime=_datetime, message=message, data=data)
 
 @app.route('/plot.png')
 def plot_png():
@@ -62,6 +62,7 @@ def plot_png():
     for i in data:
         number = data[data.index(i)][data[data.index(i)].index(' '):]
         ys.append(float(number))
+    ys = ys[0:100]
     axis.plot(xs[::-1], ys)
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)

@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{{_from}} to {{_to}}
+    {{_from}} to {{_to}}
 {% endblock %}
 
 {% block body_content %}
-<h2>{{_from}} to {{_to}}</h2>
-<p>{{content}}</p>
-<p>{{_datetime}}</p>
-<p>{{message}}</p>
-<img src="plot.png" alt="Plot">
+    <h2>{{_from}} to {{_to}}</h2>
+    <p>{{content}}</p>
+    <p>{{_datetime}}</p>
+    <p>{{message}}</p>
+    <img src="plot.png" alt="Plot">
+    {% if data %}
+        <h3>Data:</h3>
+        <p>
+        {% for n in data %}
+            {{n}} <br>
+        {% endfor %}
+        </p>
+    {% endif %}
 {% endblock %}
