@@ -35,6 +35,7 @@ def compare(_from, _to):
     data = []
     _datetime = str()
     message = str()
+    message_number = str()
     try:
         response = requests.request("GET", url, headers=headers, params=querystring)
         # print(response.text)
@@ -43,7 +44,8 @@ def compare(_from, _to):
         for key in json_response["Time Series FX (Daily)"]:
             data.append(f"{key}: {json_response['Time Series FX (Daily)'][key]['4. close']}")
         content = ", ".join(data)
-        message = f"1 {_from} is equal to {data[len(data) - 1][11:]} {_to}"
+        message_number = data[len(data) - 1][data[len(data) - 1].index(" "):]
+        message = f"1 {_from} is equal to {message_number} {_to}"
     except:
         content = "Error"
 
