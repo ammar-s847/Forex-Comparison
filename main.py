@@ -6,11 +6,15 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import numpy as np
+
+# config.py file
 from config import headers
 
 app = Flask(__name__)
 
 url = "https://alpha-vantage.p.rapidapi.com/query"
+
+data = []
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -32,7 +36,6 @@ def compare(_from, _to):
         }
 
     content = str()
-    data = []
     _datetime = str()
     message = str()
     message_number = str()
@@ -43,25 +46,29 @@ def compare(_from, _to):
         _datetime = f"Last Refreshed: {json_response['Meta Data']['5. Last Refreshed']}, Timezone: {json_response['Meta Data']['6. Time Zone']}"
         for key in json_response["Time Series FX (Daily)"]:
             data.append(f"{key}: {json_response['Time Series FX (Daily)'][key]['4. close']}")
-        content = ", ".join(data)
-        message_number = data[len(data) - 1][data[len(data) - 1].index(" "):]
-        message = f"1 {_from} is equal to {message_number} {_to}"
+        content = f"1 {_from} is equal to {data[0][data[0].index(' '):]} {_to}"
+        message = f"x-axis shows each day, where day 0 is 100 days ago ({data[len(data) - 1][:data[len(data) - 1].index(' ') - 1]}) and day 100 is the current day."
+
     except:
         content = "Error"
 
     return render_template("compare.html", _to=_to, _from=_from, content=content, _datetime=_datetime, message=message)
 
-'''
 @app.route('/plot.png')
 def plot_png():
+    global data
     fig = Figure()
     axis = fig.add_subplot(1, 1, 1)
     xs = range(100)
-    ys = [random.randint(1, 50) for x in xs]
-    axis.plot(xs, ys)
+    ys = list()
+    for i in data:
+        number = data[data.index(i)][data[data.index(i)].index(' '):]
+        ys.append(float(number))
+    axis.plot(xs[::-1], ys)
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
-    return Response(output.getvalue(), mimetype='image/png')'''
+    data = []
+    return Response(output.getvalue(), mimetype='image/png')
 
 if __name__ == "__main__":
 	app.run(debug=True)
