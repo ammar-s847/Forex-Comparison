@@ -38,7 +38,6 @@ def compare(_from, _to):
     content = str()
     _datetime = str()
     message = str()
-    message_number = str()
     try:
         response = requests.request("GET", url, headers=headers, params=querystring)
         # print(response.text)
@@ -48,7 +47,6 @@ def compare(_from, _to):
             data.append(f"{key}: {json_response['Time Series FX (Daily)'][key]['4. close']}")
         content = f"1 {_from} is equal to {data[0][data[0].index(' '):]} {_to}"
         message = f"x-axis shows each day, where day 0 is 100 days ago ({data[len(data) - 1][:data[len(data) - 1].index(' ') - 1]}) and day 100 is the current day."
-
     except:
         content = "Error"
 
