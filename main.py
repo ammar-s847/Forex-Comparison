@@ -52,7 +52,7 @@ def compare(_from, _to):
 
     return render_template("compare.html", _to=_to, _from=_from, content=content, _datetime=_datetime, message=message, data=data)
 
-@app.route('/plot.png')
+@app.route('/plot.png') # Use matplotlib savefig function instead
 def plot_png():
     global data
     fig = Figure()
